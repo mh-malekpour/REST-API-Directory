@@ -28,5 +28,5 @@ class User(db.Model):
             raise ValueError('Username is invalid.')
         return value
 
-    def check_password(self):
+    def check_password(self, password):
         return check_password_hash(self.password, password)
