@@ -1,1 +1,1 @@
-from directory.apps import app
+from directory import app

@@ -4,17 +4,16 @@ from flask_jwt_extended import (create_access_token, create_refresh_token,
                                 jwt_required)
 from sqlalchemy.exc import IntegrityError
 
-from directory.apps import db
+from directory import db
+from directory.utils.request import json_only
 
 from . import users
 from .models import User
 
 
 @users.route('/', methods=['POST'])
-def create_user():
-    if not request.is_json:
-        return {'error': 'JSON Only!'}, 400
-    
+@json_only
+def create_user(): 
     args = request.get_json()
 
     try:
@@ -34,10 +33,8 @@ def create_user():
 
 
 @users.route('/auth/', methods=['POST'])
+@json_only
 def login():
-    if not request.is_json:
-        return {'error': 'Json only!'}, 400
-
     args = request.get_json()
 
     username = args.get('username')
